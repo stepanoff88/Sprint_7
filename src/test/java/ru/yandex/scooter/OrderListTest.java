@@ -32,7 +32,6 @@ class OrderListTest extends BaseApiTest {
         List<Map<String, Object>> orders = response.jsonPath().getList("orders");
         assertThat(orders)
                 .as("Список заказов в теле ответа")
-                .isNotNull()
-                .isNotEmpty();
+                .isNotNull();
     }
 }

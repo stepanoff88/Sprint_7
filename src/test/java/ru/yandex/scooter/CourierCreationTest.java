@@ -67,23 +67,6 @@ class CourierCreationTest extends BaseApiTest {
                 .contains("Этот логин уже используется");
     }
 
-    @Test
-    @Story("Уникальность логина")
-    @DisplayName("Нельзя создать курьера с логином, который уже есть")
-    void courierCannotBeCreatedWithExistingLogin() {
-        courierClient.create(courier);
-
-        Courier courierWithSameLogin = new Courier(courier.getLogin(), "anotherPassword", "Другой курьер");
-        Response response = courierClient.create(courierWithSameLogin);
-
-        assertThat(response.statusCode())
-                .as("Код ответа при создании курьера с занятым логином")
-                .isEqualTo(409);
-        assertThat(response.jsonPath().getString("message"))
-                .as("Сообщение об ошибке")
-                .contains("Этот логин уже используется");
-    }
-
     @ParameterizedTest(name = "{0}")
     @MethodSource("couriersWithoutRequiredFields")
     @Story("Обязательные поля")
